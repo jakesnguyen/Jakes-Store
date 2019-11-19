@@ -1,3 +1,4 @@
+<%@page import="com.jakesstore.model.Comment"%>
 <%@page import="com.jakesstore.model.DevicesStatus"%>
 <%@page import="java.text.DecimalFormat"%>
 <%@page import="java.util.ArrayList"%>
@@ -7,10 +8,12 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
+
         <%                    String id = (String) request.getAttribute("id");
             int dID = Integer.parseInt(id);
             DBHelper db = new DBHelper();
             ArrayList<Devices> devicesList = db.getAllDevices();
+            ArrayList<Comment> comment = db.getAllComment();
             ArrayList<Devices> devices = new ArrayList();
             for (int i = 0; i < devicesList.size(); i++) {
                 if (devicesList.get(i).getDevicesID() == dID) {
@@ -18,7 +21,7 @@
                 }
             }
         %>
-       <meta charset="ISO-8859-1">
+        <meta charset="ISO-8859-1">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
@@ -52,6 +55,16 @@
         <![endif]-->
 
     </head>
+    <div id="fb-root"></div>
+    <script>(function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id))
+                return;
+            js = d.createElement(s);
+            js.id = id;
+            js.src = "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.0";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));</script>
     <body>
         <!-- HEADER -->
         <%@ include file = "/structure/header.jsp" %>
@@ -117,11 +130,13 @@
                             <h2 class="product-name"><%=devices.get(0).getDevicesName()%></h2>
                             <div>
                                 <div class="product-rating">
+                                    <%
+
+                                        for (int star = 0; star < (int) devicesList.get(0).getStar(); star++) {
+                                    %>
                                     <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star-o"></i>
+                                    <%
+                                        }%>
                                 </div>
                                 <a class="review-link" data-toggle="tab" href="#tab3">10 Review(s) | Add your review</a>
                             </div>
@@ -179,10 +194,11 @@
 
                             <ul class="product-links">
                                 <li>Share:</li>
-                                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                                <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-                                <li><a href="#"><i class="fa fa-envelope"></i></a></li>
+                                <li><a href="#"> <div class="fb-share-button" 
+                                                      data-href="https://github.com/jakesnguyen" 
+                                                      data-layout="button_count">
+                                        </div></li>
+
                             </ul>
 
                         </div>
@@ -195,6 +211,7 @@
                             <!-- product tab nav -->
                             <ul class="tab-nav">
                                 <li class="active"><a data-toggle="tab" href="#tab1">Description</a></li>
+
                                 <li><a data-toggle="tab" href="#tab2">Details</a></li>
                                 <li><a data-toggle="tab" href="#tab3">Reviews (3)</a></li>
                             </ul>
@@ -313,6 +330,7 @@
                                         <div class="col-md-6">
                                             <div id="reviews">
                                                 <ul class="reviews">
+                                              
                                                     <li>
                                                         <div class="review-heading">
                                                             <h5 class="name">John</h5>
@@ -329,38 +347,7 @@
                                                             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</p>
                                                         </div>
                                                     </li>
-                                                    <li>
-                                                        <div class="review-heading">
-                                                            <h5 class="name">John</h5>
-                                                            <p class="date">27 DEC 2018, 8:0 PM</p>
-                                                            <div class="review-rating">
-                                                                <i class="fa fa-star"></i>
-                                                                <i class="fa fa-star"></i>
-                                                                <i class="fa fa-star"></i>
-                                                                <i class="fa fa-star"></i>
-                                                                <i class="fa fa-star-o empty"></i>
-                                                            </div>
-                                                        </div>
-                                                        <div class="review-body">
-                                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</p>
-                                                        </div>
-                                                    </li>
-                                                    <li>
-                                                        <div class="review-heading">
-                                                            <h5 class="name">John</h5>
-                                                            <p class="date">27 DEC 2018, 8:0 PM</p>
-                                                            <div class="review-rating">
-                                                                <i class="fa fa-star"></i>
-                                                                <i class="fa fa-star"></i>
-                                                                <i class="fa fa-star"></i>
-                                                                <i class="fa fa-star"></i>
-                                                                <i class="fa fa-star-o empty"></i>
-                                                            </div>
-                                                        </div>
-                                                        <div class="review-body">
-                                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</p>
-                                                        </div>
-                                                    </li>
+                                                 
                                                 </ul>
                                                 <ul class="reviews-pagination">
                                                     <li class="active">1</li>
@@ -374,15 +361,22 @@
                                         <!-- /Reviews -->
 
                                         <!-- Review Form -->
+
+                                        <%
+                                            if (session.getAttribute("sessUserDisplayName") != null) {
+                                        %>
                                         <div class="col-md-3">
                                             <div id="review-form">
-                                                <form class="review-form">
-                                                    <input class="input" type="text" placeholder="Your Name">
-                                                    <input class="input" type="email" placeholder="Your Email">
-                                                    <textarea class="input" placeholder="Your Review"></textarea>
+                                                <form class="review-form" method="get" action="AddComment">
+                                                    <input style="display:none;" type="text" value="<%=devicesList.get(0).getDevicesID()%>" name="devicesID">
+                                                    <input style="display:none;" type="text" value="<%=session.getAttribute("sessUserID")%>" name="userID">
+                                                    <h3><%=session.getAttribute("sessUserDisplayName")%></h3>
+                                                    <h3>${MESS2}</h3>
+                                                    <textarea class="input" placeholder="Your Review" name="commentary"></textarea>
                                                     <div class="input-rating">
                                                         <span>Your Rating: </span>
                                                         <div class="stars">
+
                                                             <input id="star5" name="rating" value="5" type="radio"><label for="star5"></label>
                                                             <input id="star4" name="rating" value="4" type="radio"><label for="star4"></label>
                                                             <input id="star3" name="rating" value="3" type="radio"><label for="star3"></label>
@@ -394,6 +388,21 @@
                                                 </form>
                                             </div>
                                         </div>
+                                        <%
+                                            }
+                                            if (session.getAttribute("sessUserDisplayName") == null) {
+                                        %>
+                                        <div class="col-md-3">
+                                            <div id="review-form">
+                                                <form class="review-form">
+                                                    <h4><a href="login.jsp" style="font-size:30px;color:red;">Login</a> to post your comment</h1>
+                                                    </h4>
+                                                </form>
+                                            </div>
+                                        </div>
+                                        <%
+                                            }
+                                        %>
                                         <!-- /Review Form -->
                                     </div>
                                 </div>
@@ -438,11 +447,13 @@
                                 <h3 class="product-name"><a href="#"><%=devicesList.get(i).getDevicesName()%></a></h3>
                                 <h4 class="product-price"><%=formatter.format(devicesList.get(i).getPrice() / 100 * (100 - dStatus.get(i).getDevicesSale()))%>&#8363; <del class="product-old-price"><%=formatter.format(devicesList.get(i).getPrice())%>&#8363;</del></h4>
                                 <div class="product-rating">
+                                    <%
+
+                                        for (int star = 0; star < (int) devicesList.get(i).getStar(); star++) {
+                                    %>
                                     <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
+                                    <%
+                                        }%>
                                 </div>
                                 <div class="product-btns">
 

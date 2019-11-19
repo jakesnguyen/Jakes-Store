@@ -12,7 +12,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-  <meta charset="ISO-8859-1">
+        <meta charset="ISO-8859-1">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
@@ -239,7 +239,7 @@
                             }
 
                             int pages = db.countPages("");
-                            
+
                             int remain = pages % 12;
                             if (remain == 0) {
                                 pages = pages / 12;
@@ -289,11 +289,13 @@
                                         <h3 class="product-name"><a href="#"><%=devicesList.get(item).getDevicesName()%></a></h3>
                                         <h4 class="product-price"><%=formatter.format(devicesList.get(item).getPrice() / 100 * (100 - dStatus.get(item).getDevicesSale()))%>&#8363; <del class="product-old-price"><%=formatter.format(devicesList.get(item).getPrice())%>&#8363;</del></h4>
                                         <div class="product-rating">
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
+                                              <%
+                                            
+                                            for(int star = 0 ; star < (int) devicesList.get(item).getStar();star++){
+                                                %>
+                                                          <i class="fa fa-star"></i>
+                                                <%
+                                            }%>
                                         </div>
                                         <div class="product-btns">
 
@@ -371,11 +373,15 @@
                                         <h3 class="product-name"><a href="#"><%=devicesList.get(item).getDevicesName()%></a></h3>
                                         <h4 class="product-price"><%=formatter.format(devicesList.get(item).getPrice() / 100 * (100 - dStatus.get(item).getDevicesSale()))%>&#8363; <del class="product-old-price"><%=formatter.format(devicesList.get(item).getPrice())%>&#8363;</del></h4>
                                         <div class="product-rating">
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
+                                            
+                                            <%
+                                            
+                                            for(int star = 0 ; star < (int) devicesList.get(item).getStar();star++){
+                                                %>
+                                                          <i class="fa fa-star"></i>
+                                                <%
+                                            }%>
+
                                         </div>
                                         <div class="product-btns">
 

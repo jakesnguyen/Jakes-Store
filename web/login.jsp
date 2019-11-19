@@ -111,7 +111,7 @@
 
             function notification() {
                 var notification = "<%=request.getAttribute("notification")%>";
-                if (notification != null) {
+                if (notification != "null") {
                     alert("Register Successful!");
                 }
             }

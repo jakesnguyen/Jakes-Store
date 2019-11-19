@@ -28,6 +28,10 @@
         <servlet-name>AddSubcriber</servlet-name>
         <servlet-class>com.jakesstore.controller.AddSubcriber</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AddComment</servlet-name>
+        <servlet-class>com.jakesstore.controller.AddComment</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/LoginServlet</url-pattern>
@@ -55,6 +59,10 @@
     <servlet-mapping>
         <servlet-name>AddSubcriber</servlet-name>
         <url-pattern>/AddSubcriber</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddComment</servlet-name>
+        <url-pattern>/AddComment</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

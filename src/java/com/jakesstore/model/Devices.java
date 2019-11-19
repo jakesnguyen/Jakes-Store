@@ -22,9 +22,11 @@ public class Devices {
     private String img4;
     private String detail;
     private String brand;
-    private float star;
+    private int viewCount;
+    private double star;
+    
 
-    public Devices(int devicesID, String devicesName, int quantity, int price, int cateID, String img1, String img2, String img3, String img4, String detail, String brand, float star) {
+    public Devices(int devicesID, String devicesName, int quantity, int price, int cateID, String img1, String img2, String img3, String img4, String detail, String brand,int viewCount, double star) {
         this.devicesID = devicesID;
         this.devicesName = devicesName;
         this.quantity = quantity;
@@ -36,6 +38,7 @@ public class Devices {
         this.img4 = img4;
         this.detail = detail;
         this.brand = brand;
+        this.viewCount = viewCount;
         this.star = star;
     }
 
@@ -127,17 +130,26 @@ public class Devices {
         this.brand = brand;
     }
 
-    public float getStar() {
+    public double getViewCount() {
         return star;
     }
 
-    public void setStar(float star) {
+    public void setViewCount(int viewCount) {
+        this.viewCount = viewCount;
+    }
+
+    public double getStar() {
+        return star;
+    }
+
+    public void setStar(double star) {
         this.star = star;
     }
 
     @Override
     public String toString() {
-        return "Devices{" + "devicesID=" + devicesID + ", devicesName=" + devicesName + ", quantity=" + quantity + ", price=" + price + ", cateID=" + cateID + ", img1=" + img1 + ", img2=" + img2 + ", img3=" + img3 + ", img4=" + img4 + ", detail=" + detail + ", brand=" + brand + ", star=" + star + '}';
+        return "Devices{" + "devicesID=" + devicesID + ", devicesName=" + devicesName + ", quantity=" + quantity + ", price=" + price + ", cateID=" + cateID + ", img1=" + img1 + ", img2=" + img2 + ", img3=" + img3 + ", img4=" + img4 + ", detail=" + detail + ", brand=" + brand + ", viewCount=" + viewCount + ", star=" + star + '}';
     }
+
 
 }

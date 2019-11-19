@@ -6,6 +6,7 @@
 package com.jakesstore.dao;
 
 import com.jakesstore.model.Category;
+import com.jakesstore.model.Comment;
 import com.jakesstore.model.Devices;
 import com.jakesstore.model.DevicesStatus;
 import com.jakesstore.model.UserInfo;
@@ -38,7 +39,7 @@ public class DBHelper {
             ResultSet rs = stmt.executeQuery(sql);
             ArrayList<Devices> dList = new ArrayList<Devices>();
             while (rs.next()) {
-                dList.add(new Devices(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getInt(4), rs.getInt(5), rs.getString(6), rs.getString(7), rs.getString(8), rs.getString(9), rs.getString(10), rs.getString(11),rs.getFloat(12)));
+                dList.add(new Devices(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getInt(4), rs.getInt(5), rs.getString(6), rs.getString(7), rs.getString(8), rs.getString(9), rs.getString(10), rs.getString(11), rs.getInt(12), rs.getDouble(13)));
             }
 
             stmt.close();
@@ -85,6 +86,26 @@ public class DBHelper {
             stmt.close();
             con.close();
             return cateList;
+        } catch (Exception e) {
+            e.printStackTrace();
+            Logger.getLogger(Category.class.getName()).log(Level.SEVERE, null, e);
+        }
+        return null;
+    }
+
+    public ArrayList<Comment> getAllComment() {
+        try {
+            Connection con = DBConnect.getConnection();
+            String sql = "SELECT * FROM Comment";
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+            ArrayList<Comment> commentList = new ArrayList<Comment>();
+            while (rs.next()) {
+                commentList.add(new Comment(rs.getInt(2), rs.getInt(3), rs.getString(4), rs.getInt(5)));
+            }
+            stmt.close();
+            con.close();
+            return commentList;
         } catch (Exception e) {
             e.printStackTrace();
             Logger.getLogger(Category.class.getName()).log(Level.SEVERE, null, e);
@@ -176,10 +197,10 @@ public class DBHelper {
         ArrayList<String> list = new ArrayList<String>();
         DBHelper db = new DBHelper();
         ArrayList<Devices> d = db.getAllDevices();
-     
-        for (int item = 12 * (3 - 1) ; item < 36;item++) {
+
+        for (int item = 0; item < d.size(); item++) {
             System.out.println(d.get(item).toString());
         }
-        
+
     }
 }

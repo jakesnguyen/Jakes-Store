@@ -29,7 +29,7 @@ public class AddSubcriber extends HttpServlet {
         request.setAttribute("MESS2", mess);
         DBHelper.updateSQL("INSERT INTO Subcribers (subcriberName) VALUES (N'" + Email + "');");
   
-        request.getRequestDispatcher("index.jsp").forward(request, response);
+        request.getRequestDispatcher("subcriber.jsp").forward(request, response);
     }
 
 
